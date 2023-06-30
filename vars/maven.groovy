@@ -32,8 +32,9 @@ def call(String repositoryUrl,String containerName) {
             sh "docker run -dt --rm --name \"${containerName}\" maven_generic_final"
             sh "docker exec \"${containerName}\" mkdir /workspace"
             sh "docker cp pom.xml \"${containerName}\":/workspace/"
+            sh "docker cp settings.xml \"${containerName}\":/opt/apache-maven-3.9.3/conf/"
             sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml --version"
-            sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml clean install"
+            sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml clean install -s settings.xml"
             sh "docker container stop \"${containerName}\" "
           }
         }
