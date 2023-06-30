@@ -29,10 +29,11 @@ def call(String repositoryUrl) {
       stage('Run Container') {
         steps {
           script {
-            sh 'docker run -dt --rm --name Maven_Docker_Pipeline_Generic maven_generic'
-            sh 'docker cp pom.xml Maven_Docker_Pipeline_Generic:/workspace/'
-            sh 'docker exec Maven_Docker_Pipeline_Generic mvn -f /workspace/pom.xml --version'
-            sh 'docker exec Maven_Docker_Pipeline_Generic mvn -f /workspace/pom.xml clean install'
+            sh 'docker run -dt --rm --name Maven_Dockker_Pipeline_Generic maven_generic'
+            sh 'docker exec Maven_Dockker_Pipeline_Generic mkdir /workspace'
+            sh 'docker cp pom.xml Maven_Dockker_Pipeline_Generic:/workspace/'
+            sh 'docker exec Maven_Dockker_Pipeline_Generic mvn -f /workspace/pom.xml --version'
+            sh 'docker exec Maven_Dockker_Pipeline_Generic mvn -f /workspace/pom.xml clean install'
           }
         }
       }
