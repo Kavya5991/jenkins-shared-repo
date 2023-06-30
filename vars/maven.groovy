@@ -32,9 +32,9 @@ pipeline {
             steps {
                 script
                 {
-                    sh 'docker run -dt --rm --name maven_docker_pipeline_Generic maven_generic'
-                    sh 'docker exec maven_docker_pipeline_generic mvn -version'
-                    sh 'mvn clean install'
+                    sh 'docker run -dt --rm --name maven_docker_Pipeline_Generic maven_generic'
+                    sh 'docker exec maven_docker_Pipeline_Generic mvn -version'
+                    sh 'docker exec maven_docker_Pipeline_Generic mvn clean install'
                     
                   
 
