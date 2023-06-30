@@ -29,13 +29,13 @@ def call(String repositoryUrl,String containerName) {
       stage('Run Container') {
         steps {
           script {
-            sh "docker run -dt --rm --name \"${containerName}\" maven_generic_final"
-            sh "docker exec \"${containerName}\" mkdir /workspace"
-            sh "docker cp pom.xml \"${containerName}\":/workspace/"
-            sh "docker cp settings.xml \"${containerName}\":/opt/apache-maven-3.9.3/conf/"
-            sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml --version"
-            sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml clean install -s /opt/apache-maven-3.9.3/conf/settings.xml"
-            //sh "docker container stop \"${containerName}\" "
+            sh "docker run -dt --rm --name Maven_Docker_custom maven_generic_final"
+            sh "docker exec Maven_Docker_custom mkdir /workspace"
+            sh "docker cp pom.xml  Maven_Docker_custom :/workspace/"
+            sh "docker cp settings.xml  Maven_Docker_custom:/opt/apache-maven-3.9.3/conf/"
+            sh "docker exec  Maven_Docker_custom mvn -f /workspace/pom.xml --version"
+            sh "docker exec  Maven_Docker_custom mvn -f /workspace/pom.xml clean install -s /opt/apache-maven-3.9.3/conf/settings.xml"
+            sh "docker container stop \"${containerName}\" "
           }
         }
       }
