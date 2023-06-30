@@ -33,7 +33,7 @@ pipeline {
                 {
                     sh 'docker run -dt --rm --name maven_docker_pipeline_generic maven_generic'
                     sh 'docker exec maven_docker_pipeline_generic mvn -version'
-                    sh 'docker exec maven_docker_pipeline_generic mvn clean install'
+                    sh 'mvn clean install'
                     
                   
 
