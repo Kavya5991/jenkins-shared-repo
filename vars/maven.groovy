@@ -4,7 +4,7 @@ def call(String repositoryUrl) {
     stages {
       stage('Clone Repository') {
         steps {
-          git branch: 'main', url: "${repositoryUrl}"
+          git branch: 'master', url: "${repositoryUrl}"
         }
       }
       stage('Create Docker Image') {
