@@ -34,7 +34,7 @@ def call(String repositoryUrl,String containerName) {
             sh "docker cp pom.xml \"${containerName}\":/workspace/"
             sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml --version"
             sh "docker exec \"${containerName}\" mvn -f /workspace/pom.xml clean install"
-            sh "docker container stop \"${containerName}\"
+            sh "docker container stop \"${containerName}\" "
           }
         }
       }
