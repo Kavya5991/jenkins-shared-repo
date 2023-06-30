@@ -1,4 +1,4 @@
-def call(String repositoryUrl) {
+def call(String repositoryUrl,String containerName) {
   pipeline {
     agent any
     stages {
@@ -23,17 +23,17 @@ def call(String repositoryUrl) {
       stage('Build Docker Image') {
         steps {
           // Build Docker image
-          sh 'docker build -t maven_generic -f Dockerfile .'
+          sh 'docker build -t maven_generic_final -f Dockerfile .'
         }
       }
       stage('Run Container') {
         steps {
           script {
-            sh 'docker run -dt --rm --name Maven_Dockker_Pipeline_Generic maven_generic'
-            sh 'docker exec Maven_Dockker_Pipeline_Generic mkdir /workspace'
-            sh 'docker cp pom.xml Maven_Dockker_Pipeline_Generic:/workspace/'
-            sh 'docker exec Maven_Dockker_Pipeline_Generic mvn -f /workspace/pom.xml --version'
-            sh 'docker exec Maven_Dockker_Pipeline_Generic mvn -f /workspace/pom.xml clean install'
+            sh 'docker run -dt --rm --name "${containerName} maven_generic_final'
+            sh 'docker exec "${containerName} mkdir /workspace'
+            sh 'docker cp pom.xml "${containerName}:/workspace/'
+            sh 'docker exec "${containerName} mvn -f /workspace/pom.xml --version'
+            sh 'docker exec "${containerName} mvn -f /workspace/pom.xml clean install'
           }
         }
       }
