@@ -60,6 +60,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       }
       stage("Release Deploy") {
         steps {
+          sh "git tag -d my-app-1.0.0"
           sh "docker exec Maven_Phasess mvn release:clean release:prepare"
           sh "docker exec Maven_Phasess mvn release:perform"
           sh "docker container stop Maven_Phasess"
