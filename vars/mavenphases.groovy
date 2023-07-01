@@ -26,6 +26,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       stage('Run Container') {
         steps {
           sh "docker run -dt --rm --name Maven_Phasess maven_phases"
+          sh "docker cp settings.xml  Maven_Phasess:/opt/apache-maven-3.9.3/conf/"
         }
       }
       stage("Maven install") {
@@ -40,7 +41,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       }
       stage("Snapshot Deploy") {
         steps {
-          sh "docker exec Maven_Phasess mvn deploy"
+          sh "docker exec Maven_Phasess mvn deploy -s /opt/apache-maven-3.9.3/conf/settings.xml"
         }
       }
       stage("Release Deploy") {
