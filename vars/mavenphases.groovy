@@ -32,7 +32,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
           sh "docker exec Maven_Phasess git config --global user.name 'Kavya5991'"
         }
         }
-      }
+      
       stage("Maven install") {
         steps {
           sh "docker exec Maven_Phasess mvn clean install"
@@ -57,4 +57,4 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       }
     }
   }
-
+}
