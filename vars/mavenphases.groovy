@@ -29,41 +29,41 @@ def call(String repositoryUrl,String projectKey,String sonarToken,String sonarHo
       stage('Run Container') {
         steps {
           script {
-            sh "docker run -dt --rm --name Maven_phasess maven_phases"
-            sh "docker exec Maven_phasess mkdir /workspace"
-            sh "docker cp pom.xml Maven_phasess:/workspace/"
-            sh "docker cp settings.xml  Maven_phasess:/opt/apache-maven-3.9.3/conf/"
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml --version"
+            sh "docker run -dt --rm --name Maven_Phasess maven_phases"
+            sh "docker exec Maven_Phasess mkdir /workspace"
+            sh "docker cp pom.xml Maven_Phasess:/workspace/"
+            sh "docker cp settings.xml  Maven_Phasess:/opt/apache-maven-3.9.3/conf/"
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml --version"
           }
         }
       }
       stage("Maven install"){
         steps{
           script {
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml clean install -s /opt/apache-maven-3.9.3/conf/settings.xml"
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml clean install -s /opt/apache-maven-3.9.3/conf/settings.xml"
           }
         }
       }
        stage("Code Quality Check"){
         steps{
           script {  
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml clean verify sonar:sonar -Dsonar.projectKey="${projectKey}" -Dsonar.login="${sonarToken}" -Dsonar.host.url="${sonarHostUrl}""
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml clean verify sonar:sonar -Dsonar.projectKey="${projectKey}" -Dsonar.login="${sonarToken}" -Dsonar.host.url="${sonarHostUrl}""
           }
         }
        }
        stage("Snapshot Deploy"){
         steps{
           script {
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml deploy -s /opt/apache-maven-3.9.3/conf/settings.xml"
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml deploy -s /opt/apache-maven-3.9.3/conf/settings.xml"
           }
         }
        }
        stage("Release Deploy"){
         steps{
           script {
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml release:clean release:prepare -s /opt/apache-maven-3.9.3/conf/settings.xml"
-            sh "docker exec  Maven_phasess mvn -f /workspace/pom.xml release:perform -s /opt/apache-maven-3.9.3/conf/settings.xml"
-            sh "docker container stop Maven_phasess"
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml release:clean release:prepare -s /opt/apache-maven-3.9.3/conf/settings.xml"
+            sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml release:perform -s /opt/apache-maven-3.9.3/conf/settings.xml"
+            sh "docker container stop Maven_Phasess"
           }
         }
        }
