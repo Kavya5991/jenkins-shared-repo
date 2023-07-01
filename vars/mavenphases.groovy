@@ -10,8 +10,8 @@ def call(String repositoryUrl,String projectKey,String sonarToken,String sonarHo
       stage('Create Docker Image') {
         steps {
           writeFile file: 'Dockerfile', text: '''
-            FROM ubuntu:20.04
-            RUN apt-get update && apt-get install -y wget openjdk-11-jdk git
+            FROM ubuntu:22.04
+            RUN apt-get update && apt-get install -y wget openjdk-11-jdk
             RUN wget -q https://dlcdn.apache.org/maven/maven-3/3.9.3/binaries/apache-maven-3.9.3-bin.tar.gz
             RUN tar xf apache-maven-3.9.3-bin.tar.gz -C /opt
             RUN rm apache-maven-3.9.3-bin.tar.gz
