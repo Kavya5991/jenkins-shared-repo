@@ -33,6 +33,8 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
             sh "docker exec Maven_Phasess git config --global --add safe.directory /workspace"
           sh "docker exec Maven_Phasess git remote set-url origin ${repositoryUrl.replace('https://', 'git@')}"
           sh "docker exec Maven_Phasess git -C /workspace clone ${repositoryUrl}"
+          sh "docker exec Maven_Phasess git pull origin master"
+
           sh "docker exec -e GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' Maven_Phasess git push --set-upstream origin master"
         
 
