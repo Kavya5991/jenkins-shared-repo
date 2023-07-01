@@ -47,6 +47,7 @@ def call(String repositoryUrl,String projectKey,String sonarToken,String sonarHo
        stage("Code Quality Check"){
         steps{
           script {  
+            sh "docker exec Maven_Phasess git init /workspace"
             sh "docker exec  Maven_Phasess mvn -f /workspace/pom.xml clean verify sonar:sonar -Dsonar.projectKey='${projectKey}' -Dsonar.login='${sonarToken}' -Dsonar.host.url='${sonarHostUrl}'"
           }
         }
