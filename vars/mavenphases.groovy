@@ -23,7 +23,7 @@ def call(String repositoryUrl,String projectKey,String sonarToken,String sonarHo
       stage('Build Docker Image') {
         steps {
           // Build Docker image
-          sh 'docker build -t maven_phases-f Dockerfile .'
+          sh 'docker build -t maven_phases -f Dockerfile .'
         }
       }
       stage('Run Container') {
