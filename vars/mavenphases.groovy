@@ -14,7 +14,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
             ENV MAVEN_HOME=/opt/apache-maven-3.9.3
             ENV PATH=$MAVEN_HOME/bin:$PATH
             WORKDIR /workspace
-           // COPY . /workspace
+           
           '''
         }
       }
