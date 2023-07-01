@@ -57,4 +57,4 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       }
     }
   }
-}
+
