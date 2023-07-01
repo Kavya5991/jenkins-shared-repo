@@ -26,8 +26,7 @@ def call(String repositoryUrl, String projectKey, String sonarToken, String sona
       }
       stage('Run Container') {
         steps {
-           sh "docker run -dt --rm --name Maven_Phasess -v ~/.ssh:/root/.ssh  /var/lib/jenkins/workspace/maven/shared-library-demo/maven-phases-sl
-:/workspace maven_phases"
+           sh "docker run -dt --rm --name Maven_Phasess -v ~/.ssh:/root/.ssh -v /var/lib/jenkins/workspace/maven/shared-library-demo/maven-phases-sl:/workspace maven_phases"
           sh "docker cp settings.xml  Maven_Phasess:/opt/apache-maven-3.9.3/conf/"
           sh "docker exec Maven_Phasess git config --global user.email 'kavyakolla98@gmail.com'"
           sh "docker exec Maven_Phasess git config --global user.name 'Kavya5991'"
